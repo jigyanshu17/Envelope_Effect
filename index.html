@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Previous styles remain the same */
+body{
+    background: linear-gradient(to right,#000000,#ecedfd);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.star {
+    position: absolute;
+    background: transparent;
+    animation: twinkle 1.5s ease-in-out;
+    opacity: 0;
+}
+
+.star:before {
+    content: "⭐";
+    font-size: 20px;
+    position: absolute;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: confetti-fall 3s ease-in-out;
+}
+
+@keyframes twinkle {
+    0% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-200px) rotate(360deg) scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.celebration-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 40px;
+    color: #ff4a4a;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    z-index: 1000;
+    opacity: 0;
+    text-align: center;
+    animation: pop-up 1s ease-out forwards;
+}
+
+@keyframes pop-up {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.all_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+    gap: 10px;
+}
+
+.container {
+    position: relative;
+    height: 92px;
+    width: 140px;
+    background: #ddd;
+    border-radius: 6px;
+    box-shadow: 0px 0px 3px #000;
+    margin-bottom: 60px;
+}
+
+.envelope{
+    position: absolute;
+    border-top: 46px solid transparent;
+    border-left: 70px solid #fa565a;
+    border-bottom: 46px solid #fa565a;
+    border-right: 70px solid #ed4c50;
+    border-radius: 6px;
+    z-index: 9;
+}
+
+.flip{
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top: 46px solid #c94548;
+    border-left: 70px solid transparent;
+    border-bottom: 46px solid transparent;
+    border-right: 70px solid transparent;
+    border-radius: 6px;
+    z-index: 6;
+}
+
+.letter{
+    position: absolute;
+    top: 0px;
+    left: 2px;
+    height: 90px;
+    width: 136px;
+    background: #fff;
+    border-radius: 10px;
+    z-index: 5;
+    padding: 5px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #170808;
+}
+
+.open{
+    animation: flipOpen .4s ease-in forwards;
+}
+
+.close{
+    animation: flipClose .4s ease-in forwards;
+}
+
+.letterOpen{
+    top: -60px;
+    transition: .3s ease-in;
+}
+
+.letterClose{
+    top: 0px;
+    transition: .3s ease-in;
+}
+
+@keyframes flipOpen{
+    0%{
+        transform: rotateX(0deg);
+        transform-origin: center top;
+    }
+    100%{
+        transform: rotateX(180deg);
+        transform-origin: center top;
+    }
+}
+
+@keyframes flipClose{
+    0%{
+        transform: rotateX(180deg);
+        transform-origin: center top;
+    }
+    100%{
+        transform: rotateX(0deg);
+        transform-origin: center top;
+    }
+}
+
+button{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: 120px;
+    text-align: center;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    letter-spacing: 1px;
+    background: #ed4c50;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+button:focus{
+    outline: none;
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+#close{
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+#open:focus ~ #close{
+    cursor: pointer;
+    background: #ed4c50;
+    color: #fff;
+}
+
+h1{
+    font-size: 25px;
+    text-align: center;
+    border-bottom: 3px solid #000;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+p{
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    margin: 20px 0;
+}
+
+b:first-child{
+    color: #E31B23;
+    text-shadow: 0 0 3px #000;
+}
+
+b:last-child{
+    color: #A594F9;
+    text-shadow: 0 0 2px #000;
+}
+
+hr{
+    width: 300px;
+    margin: 40px auto;
+    height: 4px;
+    background-color: #666;
+    border: 0px;
+}
+</style>
+</head>
+<body>
+    <h1>Made with Love for <b>Bacchii</b></h1>
+    <p>Use buttons to <strong>Open</strong> and <strong>Close</strong> the envelope</p>
+    <div class="all_container">
+        <div class="container">
+            <div class="envelope"></div>
+            <div class="flip"></div>
+            <div class="letter">
+                <br>Dear Bacchii,<br>       
+          Huge congratulations on your achievement! 🎉
+                
+                
+            </div>
+        </div>
+        <div class="button-container">
+            <button id="open">Open</button>
+            <button id="close">Close</button>
+        </div>
+        <hr>
+    </div>
+
+<script>
+// Wait for the DOM to be fully loaded before running the script
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements after DOM is loaded
+    const flip = document.querySelector('.flip');
+    const letter = document.querySelector('.letter');
+    const btnOpen = document.querySelector('#open');
+    const btnClose = document.querySelector('#close');
+
+    function createStar() {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * window.innerWidth + 'px';
+        star.style.top = window.innerHeight + 'px';
+        document.body.appendChild(star);
+        
+        setTimeout(() => {
+            star.remove();
+        }, 1500);
+    }
+
+    function createConfetti() {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 3000);
+    }
+
+    function showCelebrationText() {
+        const text = document.createElement('div');
+        text.className = 'celebration-text';
+        text.innerHTML = '🎉 Congratulations! 🎉<br>🌟 You Did It! 🌟';
+        document.body.appendChild(text);
+        
+        setTimeout(() => {
+            text.style.opacity = '0';
+            setTimeout(() => {
+                text.remove();
+            }, 1000);
+        }, 2000);
+    }
+
+    function createStars() {
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createStar, Math.random() * 1500);
+        }
+    }
+
+    function createConfettis() {
+        for (let i = 0; i < 50; i++) {
+            setTimeout(createConfetti, Math.random() * 3000);
+        }
+    }
+
+    function celebrate() {
+        createStars();
+        createConfettis();
+        showCelebrationText();
+    }
+
+    function open(){
+        flip.classList.add('open');
+        flip.classList.remove('close');
+        celebrate();
+        
+        setTimeout(function(){
+            letter.classList.add('letterOpen');
+            letter.classList.remove('letterClose');
+            letter.style.zIndex = '7';
+            btnOpen.style.background = '#ccc';
+            btnOpen.style.color = '#666';
+            btnOpen.style.cursor = 'not-allowed';
+            btnClose.style.background = '#ed4c50';
+            btnClose.style.color = '#fff';
+            btnClose.style.cursor = 'pointer';
+        },400);
+    }
+
+    function close(){
+        letter.classList.remove('letterOpen');
+        letter.classList.add('letterClose');
+        setTimeout(function(){
+            flip.classList.remove('open');
+            flip.classList.add('close');
+            letter.style.zIndex = '5';
+            btnOpen.style.background = '#ed4c50';
+            btnOpen.style.color = '#fff';
+            btnOpen.style.cursor = 'pointer';
+            btnClose.style.background = '#ccc';
+            btnClose.style.color = '#666';
+            btnClose.style.cursor = 'not-allowed';
+        },300);
+    }
+
+    // Add event listeners after elements are available
+    btnOpen.addEventListener('click', open);
+    btnClose.addEventListener('click', close);
+
+    // Initialize close button as disabled
+    btnClose.style.background = '#ccc';
+    btnClose.style.color = '#666';
+    btnClose.style.cursor = 'not-allowed';
+});
+</script>
+</body>
+</html>
